@@ -1,7 +1,31 @@
 .app-wrapper {
     max-width: 1010px;
+    min-height: 100vh;
     margin: 0 auto;
     padding: 36px;
     background-color: #fff;
+}
+
+.ant-spin-spinning {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.ant-alert {
+    position: absolute;
+    top: 45%;
+    left: 40%;
+}
+
+.errorMessageLine {
+    padding: 10px 15px;
+    position: fixed;
+    top: 40%;
+    left: 35%;
+    background-color: rgb(247, 20, 20);
+    font-size: 32px;
+    color: #fff;
+    z-index: 99;
 }
 

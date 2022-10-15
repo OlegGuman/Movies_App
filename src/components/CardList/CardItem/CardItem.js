@@ -5,6 +5,7 @@ const { Title, Paragraph } = Typography
 
 import fallbackImg from './no-image.webp'
 import './cardItem.css'
+import StarIcons from './StarIcons'
 
 export default class CardItem extends Component {
   curtailText(text) {
@@ -31,7 +32,7 @@ export default class CardItem extends Component {
         <div className="content-wrapper">
           <div className="card-top">
             <Title className="card-title" level={4}>
-              {itemProps.title}
+              {title}
             </Title>
             <span className="movie-retting">{vote_average}</span>
           </div>
@@ -45,6 +46,7 @@ export default class CardItem extends Component {
           <div className="movie-description">
             <Paragraph className="description-text">{this.curtailText(overview)}</Paragraph>
           </div>
+          <StarIcons />
         </div>
       </div>
     )
