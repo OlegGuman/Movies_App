@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import NavigatorOnline from 'react-navigator-online'
 import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default class ErrorLine extends Component {
   showMessage(status) {

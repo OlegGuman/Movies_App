@@ -9,7 +9,7 @@ export default class HeaderSearch extends Component {
   constructor() {
     super()
     this.state = {
-      input: 'Type to search...',
+      inputValue: 'Type to search...',
     }
   }
 
@@ -23,7 +23,7 @@ export default class HeaderSearch extends Component {
     return (
       <header className="header-search">
         <HeaderButtons />
-        <Input value={this.state.input} onChange={(e) => this.handleInput(e)} className="input-search" />
+        <Input value={this.state.inputValue} onChange={(e) => this.handleInput(e)} className="input-search" />
       </header>
     )
   }

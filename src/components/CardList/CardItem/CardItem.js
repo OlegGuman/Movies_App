@@ -1,11 +1,10 @@
 import { Component } from 'react'
 import { format } from 'date-fns'
-import { Button, Image, Typography } from 'antd'
+import { Button, Image, Typography, Rate } from 'antd'
 const { Title, Paragraph } = Typography
 
 import fallbackImg from './no-image.webp'
 import './cardItem.css'
-import StarIcons from './StarIcons'
 
 export default class CardItem extends Component {
   curtailText(text) {
@@ -19,7 +18,6 @@ export default class CardItem extends Component {
   render() {
     const { itemProps } = this.props
     const { title, poster_path, release_date, overview, vote_average } = itemProps
-
     return (
       <div className="card">
         <Image
@@ -46,7 +44,7 @@ export default class CardItem extends Component {
           <div className="movie-description">
             <Paragraph className="description-text">{this.curtailText(overview)}</Paragraph>
           </div>
-          <StarIcons />
+          <Rate className="stars-collection" count={10} allowHalf defaultValue={2.5} />
         </div>
       </div>
     )
