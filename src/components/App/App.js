@@ -2,7 +2,6 @@ import { Component } from 'react'
 import { Alert, Spin } from 'antd'
 
 import 'antd/dist/antd.min.css'
-import ErrorLine from '../ErrorLine'
 import CardList from '../CardList'
 import MoviesService from '../../services/services_api'
 import './app.css'
@@ -15,31 +14,42 @@ export default class App extends Component {
     moviesArray: [],
     loading: true,
     error: false,
-    line: false,
     page: 1,
+    queryParam: 1,
   }
 
-  handlePage = (num) => {
-    this.getFilms(num)
+  searchMovie = (searchValue, page = this.state.page) => {
+    if (searchValue === '') {
+      searchValue = 1
+    }
+    this.getFilms(page, searchValue)
     this.setState({
+      loading: true,
+      queryParam: searchValue,
+    })
+  }
+
+  handlePage = (num, query = this.state.queryParam) => {
+    this.getFilms(num, query)
+    this.setState({
+      loading: true,
       page: num,
     })
   }
 
   componentDidMount() {
-    this.getFilms()
+    this.getFilms(this.state.page, this.state.queryParam)
   }
 
   onLoaded = (dataMovies) => {
     this.setState({
       moviesArray: dataMovies,
       loading: false,
-      line: true,
     })
   }
 
-  getFilms(page) {
-    this.moviesService.getMovies(page).then(this.onLoaded).catch(this.onError)
+  getFilms(page, query) {
+    this.moviesService.getMovies(page, query).then(this.onLoaded).catch(this.onError)
   }
 
   onError = () => {
@@ -50,25 +60,32 @@ export default class App extends Component {
   }
 
   render() {
-    const { moviesArray, loading, error, line } = this.state
+    const { moviesArray, loading, error } = this.state
     const { results, total_pages } = moviesArray
-    console.log(results)
     const hasData = !(loading || error)
     const spin = loading ? <Spin size="large" tip="Loading..."></Spin> : null
     const cardList = hasData ? (
-      <CardList arr={results} totalPage={total_pages} page={this.state.page} handlePage={this.handlePage} />
+      <CardList
+        className="card-list"
+        arr={results}
+        totalPage={total_pages}
+        page={this.state.page}
+        handlePage={this.handlePage}
+      />
     ) : null
-    const errorLine = line ? <ErrorLine /> : null
+    const noContent = !(total_pages || loading) ? (
+      <Alert message="Error" type="error" showIcon description="По вашему запросу не чего не найдено!" />
+    ) : null
     const errorMessage = error ? (
       <Alert message="Error" type="error" showIcon description="Что-то пошло не так!" />
     ) : null
     return (
       <section className="app-wrapper">
-        <HeaderSearch />
+        <HeaderSearch searchMovie={this.searchMovie} />
         {errorMessage}
+        {noContent}
         {spin}
         {cardList}
-        {errorLine}
       </section>
     )
   }

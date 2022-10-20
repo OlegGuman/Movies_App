@@ -21,7 +21,7 @@ export default class CardList extends Component {
     return (
       <>
         <Row gutter={[36, 36]}>{items}</Row>
-        <FooterPagination page={page} handlePage={handlePage} totalPage={totalPage} />
+        <FooterPagination className="pagination" page={page} handlePage={handlePage} totalPage={totalPage} />
       </>
     )
   }

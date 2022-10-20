@@ -1,9 +1,12 @@
 export default class MoviesService {
   _apiBase = 'https://api.themoviedb.org/3/'
   _apiKey = '098a3f36e4fa66057828f78ad41efa04'
+  _language = '&language=ru-RU'
 
-  async getResource(url, page) {
-    const res = await fetch(`${this._apiBase}${url}?api_key=${this._apiKey}&query=1&page=${page}`)
+  async getResource(url, page, query) {
+    let requestAddress = `${this._apiBase}${url}?api_key=${this._apiKey}${this._language}&page=${page}&query=${query}`
+
+    const res = await fetch(requestAddress)
 
     if (!res.ok) {
       throw new Error(`Не удалось получить данные ${res.status}`)
@@ -11,9 +14,8 @@ export default class MoviesService {
     return await res.json()
   }
 
-  async getMovies(page) {
-    const res = await this.getResource('search/movie', page)
-    console.log(res)
+  async getMovies(page, query) {
+    const res = await this.getResource('search/movie', page, query)
     return await res
   }
 }
