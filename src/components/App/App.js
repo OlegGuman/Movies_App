@@ -37,6 +37,7 @@ export default class App extends Component {
 
   rateMovies = (movieId, rating) => {
     moviesService.rateMovie(movieId, rating, this.state.sessionId)
+    localStorage.setItem(movieId, rating)
   }
 
   searchMovie = (searchValue, page = this.state.page) => {
