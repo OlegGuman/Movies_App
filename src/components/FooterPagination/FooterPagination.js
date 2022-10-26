@@ -4,16 +4,17 @@ import './footerPagination.css'
 
 export default class FooterPagination extends Component {
   render() {
-    const { handlePage, page, totalPage } = this.props
+    const { handlePage, page, totalResult } = this.props
     return (
       <footer>
         <Pagination
-          size="small"
-          total={totalPage}
           current={page}
           onChange={(current) => handlePage(current)}
           defaultCurrent={1}
+          size="small"
+          total={totalResult}
           pageSize={20}
+          showSizeChanger={false}
         />
       </footer>
     )

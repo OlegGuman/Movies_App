@@ -3,3 +3,9 @@
     border-radius: 5px;
 }
 
+@media (max-width: 540px) {
+    .input-search {
+        margin-bottom: 16px;
+    }
+}
+

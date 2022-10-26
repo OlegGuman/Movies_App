@@ -25,15 +25,20 @@ export default class HeaderSearch extends Component {
   }
 
   render() {
-    return (
-      <header className="header-search">
-        <HeaderButtons />
+    const { onClickTab, handleStatus } = this.props
+    const searchInput =
+      handleStatus === 'search' ? (
         <Input
           placeholder="Type to search..."
           value={this.state.text}
           onChange={this.handleTextChange}
           className="input-search"
         />
+      ) : null
+    return (
+      <header className="header-search">
+        <HeaderButtons onClickTab={onClickTab} />
+        {searchInput}
       </header>
     )
   }

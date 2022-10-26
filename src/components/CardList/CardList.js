@@ -8,20 +8,54 @@ import 'antd/dist/antd.min.css'
 import './cardList.css'
 
 export default class CardList extends Component {
+  state = {
+    colSpan: 12,
+    rowGutter: [32, 32],
+  }
+
+  componentDidMount() {
+    if (document.documentElement.clientWidth < 992) {
+      this.setState({
+        colSpan: 24,
+        rowGutter: [20, 20],
+      })
+    } else {
+      this.setState({
+        colSpan: 12,
+        rowGutter: [32, 32],
+      })
+    }
+
+    window.addEventListener('resize', () => {
+      if (document.documentElement.clientWidth < 992) {
+        this.setState({
+          colSpan: 24,
+          rowGutter: [20, 20],
+        })
+      } else {
+        this.setState({
+          colSpan: 12,
+          rowGutter: [32, 32],
+        })
+      }
+    })
+  }
+
   render() {
-    const { arr, page, handlePage, totalPage } = this.props
+    const { arr, page, handlePage, totalResult, rateMovies } = this.props
+    const { colSpan, rowGutter } = this.state
     const items = arr.map((item) => {
       const { id } = item
       return (
-        <Col span={12} key={id} className="item">
-          <CardItem itemProps={item} />
+        <Col span={colSpan} key={id} className="item">
+          <CardItem rateMovies={rateMovies} itemProps={item} />
         </Col>
       )
     })
     return (
       <>
-        <Row gutter={[36, 36]}>{items}</Row>
-        <FooterPagination className="pagination" page={page} handlePage={handlePage} totalPage={totalPage} />
+        <Row gutter={rowGutter}>{items}</Row>
+        <FooterPagination className="pagination" page={page} handlePage={handlePage} totalResult={totalResult} />
       </>
     )
   }
