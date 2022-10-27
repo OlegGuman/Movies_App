@@ -33,6 +33,7 @@ export default class MoviesService {
         body: JSON.stringify({ value: rating }),
       }
     )
+
     return res
   }
 

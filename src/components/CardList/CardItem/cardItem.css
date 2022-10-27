@@ -152,7 +152,7 @@ h5.ant-typography.card-title {
 
     .ant-rate {
         display: flex;
-        justify-content: end;
+        justify-content: flex-end;
     }
 }
 
